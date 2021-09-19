@@ -35,13 +35,16 @@ After that go into the directory in which you clone the repo and on your command
 ```console
 pip install -r requirements.txt
 ```
+### And then
 
 ```console
 python manage.py makemigrations
 ```
+------
 ```console
 python manage.py migrate
 ```
+------
 ```console
 python manage.py runserver
 ```
