@@ -17,9 +17,13 @@ git clone https://github.com/JimPouris/django-todo.git
 
 After that go into the directory in which you clone the repo and on your command prompt type:
 
-```
+```bash
 python manage.py makemigrations
+```
+```bash
 python manage.py migrate
+```
+```bash
 python manage.py runserver
 ```
 
