@@ -6,11 +6,11 @@ from django.utils import timezone
 class Todo(models.Model):
     todo = models.CharField(max_length=500)
     done = models.BooleanField(default=False)
-    datetime = models.DateTimeField(default=timezone.now())
+    datetime = models.DateTimeField(auto_now_add=timezone.now())
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         if not self.id:
-            self.created = timezone.now()
+            self.datetime = timezone.now()
         self.modified = timezone.now()
         return super(Todo,self).save(*args, **kwargs)

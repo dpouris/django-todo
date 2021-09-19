@@ -2,7 +2,7 @@
     {% block page_title %}To-do App{% endblock page_title %}
 
     {% block page_content %}
-        <div class="container form-control" style = '-min-width:50%;'>
+        <div class="shadow-lg rounded bg-light container" style = 'min-width:50%;'>
                 <div class='d-flex bd-highlight mb-3 mb-4'>
                     <h5 class='me-auto p-2 bd-highlight mt-3 mx-3'><span class='text-primary'>add</span> your to-do's</h5>
                     {% if show_button %} <a class='btn btn-primary mt-3 mx-2 mb-2 bd-highlight' href='{% url 'update_all' %}'>Complete All </a> {% endif %}
@@ -19,11 +19,12 @@
                     <input type="text"  class='form-control d-inline' style='width:90%' name="" id="" style='outline:none; border:none'></label>
                     <button class="btn btn-outline-success d-inline" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
                 </div>                     {% endcomment %}
+                {% if items %}<hr>{% endif %}
                 <form action="{% url 'create' %}" method='POST' class=' d-flex justify-content-center align-items-center'>
                     {% csrf_token %}
                     <div class="input-group mb-3 p-5 " style='width:50%'>
                         <input id = 'add' type="text" value='' class="form-control input-sm"  onchange="this.setAttribute('value', this.value);" placeholder="Add to-do " aria-label="Add to-do" name='item' aria-describedby="button-addon2"><label id = 'slash' class='d-inline'></label>
-                        <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
                     </div>
                 </form>
         </div>
