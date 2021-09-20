@@ -2,41 +2,41 @@
     {% block page_title %}To-do App{% endblock page_title %}
 
     {% block page_content %}
-        <div class="shadow-lg rounded bg-light container" style = 'min-width:50%;'>
-                <div class='d-flex bd-highlight mb-3 mb-4'>
-                    <h5 class='me-auto p-2 bd-highlight mt-3 mx-3'><span class='text-primary'>add</span> your to-do's</h5>
-                    {% if show_button %} <a class='btn btn-primary mt-3 mx-2 mb-2 bd-highlight' href='{% url 'update_all' %}'>Complete All </a> {% endif %}
-                    {% if items %} <a class='btn btn-danger mt-3 mx-2 mb-2 bd-highlight  ' href='{% url 'delete_all' %}'>Delete All </a> {% endif %}
+    <div class="shadow-lg rounded bg-light container" style = 'min-width:50%;'>
+            <div class='d-flex bd-highlight mb-3 mb-4'>
+                <h5 class='me-auto p-2 bd-highlight mt-3 mx-3'><span class='text-primary'>add</span> your to-do's</h5>
+                {% if show_button %} <a class='btn btn-primary mt-3 mx-2 mb-2 bd-highlight' href='{% url 'update_all' %}'>Complete All </a> {% endif %}
+                {% if items %} <a class='btn btn-danger mt-3 mx-2 mb-2 bd-highlight  ' href='{% url 'delete_all' %}'>Delete All </a> {% endif %}
+            </div>
+            {% for item in items  %}
+            <div class='input-group container p-3'>
+                <input disabled class='form-control' style="display:inline; {% if item.done %}text-decoration:line-through; background:#d2dae3;{% endif %}" aria-label="todo-item" aria-describedby="todo-item" value='{{item.todo}}'></input><input type="text" class='form-control' style="display:inline; text-align:right;{% if item.done %} background:#d2dae3;{% endif %}" disabled value='{{item.datetime}}'>
+                <a class='btn btn-{% if item.done %}secondary{%else%}primary{% endif %} me-1 ' href='{% url 'update'  item.id %}' id='todo-item'><i class="fas fa-check"></i></a>
+                <a class='btn btn-danger' href='{% url 'delete' item.id %}' id='todo-item'><i class="fas fa-times"></i></a>
+            </div>
+            {% if items %}<hr>{% endif %}
+            {% endfor %}
+            {% comment %} <div class="input-group d-flex " style='width:50%'>
+                <input type="text"  class='form-control d-inline' style='width:90%' name="" id="" style='outline:none; border:none'></label>
+                <button class="btn btn-outline-success d-inline" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
+            </div>                     {% endcomment %}
+            <form action="{% url 'create' %}" method='POST' class=' d-flex justify-content-center align-items-center'>
+                {% csrf_token %}
+                <div class="input-group mb-3 p-5 " style='width:50%'>
+                    <input id = 'add' type="text" value='' class="form-control input-sm"  onchange="this.setAttribute('value', this.value);" placeholder="Add to-do " aria-label="Add to-do" name='item' aria-describedby="button-addon2"><label id = 'slash' class='d-inline'></label>
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
                 </div>
-                {% for item in items  %}
-                <div class='input-group container p-3'>
-                    <input disabled class='form-control' style="display:inline; {% if item.done %}text-decoration:line-through; background:#d2dae3;{% endif %}" aria-label="todo-item" aria-describedby="todo-item" value='{{item.todo}}'></input><input type="text" class='form-control' style="display:inline; text-align:right;{% if item.done %} background:#d2dae3;{% endif %}" disabled value='{{item.datetime}}'>
-                    <a class='btn btn-{% if item.done %}secondary{%else%}success{% endif %} me-1 ' href='{% url 'update'  item.id %}' id='todo-item'><i class="fas fa-check"></i></a>
-                    <a class='btn btn-danger' href='{% url 'delete' item.id %}' id='todo-item'><i class="fas fa-times"></i></a>
-                </div>
-                {% endfor %}
-                {% comment %} <div class="input-group d-flex " style='width:50%'>
-                    <input type="text"  class='form-control d-inline' style='width:90%' name="" id="" style='outline:none; border:none'></label>
-                    <button class="btn btn-outline-success d-inline" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
-                </div>                     {% endcomment %}
-                {% if items %}<hr>{% endif %}
-                <form action="{% url 'create' %}" method='POST' class=' d-flex justify-content-center align-items-center'>
-                    {% csrf_token %}
-                    <div class="input-group mb-3 p-5 " style='width:50%'>
-                        <input id = 'add' type="text" value='' class="form-control input-sm"  onchange="this.setAttribute('value', this.value);" placeholder="Add to-do " aria-label="Add to-do" name='item' aria-describedby="button-addon2"><label id = 'slash' class='d-inline'></label>
-                        <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-pen"></i></button>
-                    </div>
-                </form>
-        </div>
-        
-        <script>
-            const input = document.getElementById('add')
-            document.addEventListener('keyup',(e)=>{
-                e.preventDefault();
-                if (e.keyCode === 191){
-                    input.focus();
-                }
-            })
-        </script>
+            </form>
+    </div>
+    
+    <script>
+        const input = document.getElementById('add')
+        document.addEventListener('keyup',(e)=>{
+            e.preventDefault();
+            if (e.keyCode === 191){
+                input.focus();
+            }
+        })
+    </script>
 
     {% endblock page_content %}
